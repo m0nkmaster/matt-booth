@@ -1,16 +1,47 @@
 ## Cursor Cloud specific instructions
 
-This repository ("matt-booth") is Matt's personal website. As of initial setup, the repo contains only a `README.md` — no application code, no dependencies, no build system, and no tests.
+This repository is **thephotonbooth.com** — Matt Booth's personal blog about amateur astrophotography, built as a static Jekyll site and served from GitHub Pages.
 
-### Environment
+### Tech Stack
 
-- Node.js v22 and Python 3.12 are available in the VM.
-- No package manager lockfile or dependency manifest exists yet.
+- **Jekyll** (static site generator) — GitHub Pages builds it natively
+- **Vanilla CSS** — no preprocessors, just plain CSS in `assets/css/main.css`
+- **utterances** — comment system backed by GitHub Issues (no database)
 
-### Development
+### Local Development
 
-Once application code is added, update this section with:
-- How to install dependencies
-- How to run the dev server
-- How to lint and test
-- Any non-obvious caveats discovered during setup
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+The site runs at `http://localhost:4000`.
+
+### Writing Posts
+
+Add Markdown files to `_posts/` with the naming convention `YYYY-MM-DD-slug.md`. Required front matter:
+
+```yaml
+---
+layout: post
+title: "Post Title"
+date: YYYY-MM-DD
+description: "Short description for the post listing."
+---
+```
+
+### Project Structure
+
+- `_config.yml` — Jekyll site configuration
+- `_layouts/` — HTML templates (`default.html`, `post.html`)
+- `_posts/` — Blog posts in Markdown
+- `assets/css/main.css` — All styles
+- `index.html` — Home page with post listing
+
+### Comments (utterances)
+
+Comments use [utterances](https://utteranc.es/) which maps each post to a GitHub Issue. The repo owner must install the [utterances GitHub App](https://github.com/apps/utterances) on this repository to enable comments.
+
+### Deployment
+
+Push to `main` — GitHub Pages builds and deploys automatically. No manual build step needed.

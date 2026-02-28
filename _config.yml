@@ -1,0 +1,20 @@
+title: thephotonbooth.com
+description: Amateur astrophotography by Matt Booth
+author: Matt Booth
+url: "https://thephotonbooth.com"
+baseurl: ""
+
+permalink: /:year/:month/:day/:title/
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - AGENTS.md
+  - vendor
