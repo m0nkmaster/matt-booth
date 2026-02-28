@@ -3,10 +3,10 @@ layout: post
 title: "A Moment at the Bar"
 date: 2026-02-28
 description: "A contemplative pause at the beer festival — warm light, a good pint, and the kind of evening that lingers."
-image: /assets/images/beer-festival-2023.jpg
+image: /assets/images/beer-festival-2023.svg
 ---
 
-![A moment at the bar — warm pub lighting, a quiet pause, and the 2023 festival wristband](/assets/images/beer-festival-2023.jpg)
+![A moment at the bar — warm pub lighting, a quiet pause, and the 2023 festival wristband](/assets/images/beer-festival-2023.svg)
 
 Some photographs capture a mood better than any caption. This one, from the 2023 beer festival, does exactly that: the warm mustard walls and dark wood, the wristband still on from a long afternoon of tasting, the empty glass with just the dregs of something good. It's the kind of evening where you've stopped thinking about the next pint and started noticing the room — the EXIT sign, the framed print, the way the light falls on the table.
 

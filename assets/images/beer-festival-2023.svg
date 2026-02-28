@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" aria-labelledby="pub-scene-desc">
+  <title id="pub-scene-desc">A moment at the bar  warm pub lighting, a contemplative pause, and the 2023 festival wristband</title>
+  <defs>
+    <linearGradient id="wall" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#d4ad3a"/>
+    </linearGradient>
+    <linearGradient id="wainscot" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a3a4a"/>
+      <stop offset="100%" stop-color="#0d2530"/>
+    </linearGradient>
+    <linearGradient id="table" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3d2a1a"/>
+      <stop offset="100%" stop-color="#1a1510"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a3a5a"/>
+      <stop offset="100%" stop-color="#1a2540"/>
+    </linearGradient>
+  </defs>
+  <!-- Background: wall and wainscoting -->
+  <rect width="100%" height="100%" fill="url(#wall)"/>
+  <rect y="320" width="100%" height="180" fill="url(#wainscot)"/>
+  <!-- Window with EXIT -->
+  <rect x="80" y="60" width="120" height="100" fill="rgba(200,220,240,0.3)" stroke="#8a9a6a" stroke-width="2"/>
+  <text x="140" y="140" fill="#2d5a2d" font-size="14" font-family="sans-serif" text-anchor="middle" font-weight="bold">EXIT</text>
+  <!-- Framed picture -->
+  <rect x="620" y="80" width="100" height="80" fill="#2a2520" stroke="#3a3530"/>
+  <rect x="630" y="90" width="80" height="60" fill="#4a4540"/>
+  <!-- Figure silhouette -->
+  <ellipse cx="400" cy="380" rx="180" ry="40" fill="url(#table)"/>
+  <!-- Person: torso/shirt -->
+  <path d="M280 280 L520 280 L500 380 L300 380 Z" fill="url(#shirt)"/>
+  <!-- Head -->
+  <ellipse cx="400" cy="220" rx="55" ry="65" fill="#e8dcc8"/>
+  <!-- Glasses -->
+  <rect x="355" y="205" width="45" height="25" rx="4" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+  <rect x="400" y="205" width="45" height="25" rx="4" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+  <line x1="400" y1="218" x2="400" y2="218" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- Arms on table -->
+  <rect x="320" y="360" width="80" height="25" rx="4" fill="#e8dcc8"/>
+  <rect x="400" y="360" width="80" height="25" rx="4" fill="#e8dcc8"/>
+  <!-- Wristband -->
+  <rect x="318" y="358" width="84" height="8" rx="2" fill="#2a2a2a"/>
+  <text x="360" y="364" fill="#e8e8e8" font-size="6" font-family="sans-serif">2023</text>
+  <!-- Pint glasses on table -->
+  <rect x="550" y="280" width="40" height="90" rx="4" fill="rgba(220,220,200,0.4)" stroke="#8a8a7a"/>
+  <rect x="555" y="275" width="30" height="15" rx="2" fill="rgba(240,230,180,0.6)"/>
+  <rect x="605" y="290" width="40" height="80" rx="4" fill="rgba(220,220,200,0.3)" stroke="#7a7a6a"/>
+</svg>
