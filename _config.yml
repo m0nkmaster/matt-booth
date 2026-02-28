@@ -2,7 +2,7 @@ title: thephotonbooth.com
 description: Amateur astrophotography by Matt Booth
 author: Matt Booth
 url: "https://thephotonbooth.com"
-baseurl: "/matt-booth"
+baseurl: ""
 
 permalink: /:year/:month/:day/:title/
 
