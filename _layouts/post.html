@@ -13,9 +13,9 @@ layout: default
 
   <hr class="divider">
 
+  {% if site.cusdis.app_id and site.cusdis.app_id != "" %}
   <section class="comments">
     <h2>Comments</h2>
-    {% if site.cusdis.app_id and site.cusdis.app_id != "" %}
     <div id="cusdis_thread"
       data-host="https://cusdis.com"
       data-app-id="{{ site.cusdis.app_id }}"
@@ -25,11 +25,9 @@ layout: default
       data-theme="dark">
     </div>
     <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-    {% else %}
-    <p>Comments are not yet enabled on this site.</p>
-    {% endif %}
     <noscript>
       <p>Enable JavaScript to view comments.</p>
     </noscript>
   </section>
+  {% endif %}
 </article>
