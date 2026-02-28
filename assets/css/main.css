@@ -336,8 +336,8 @@ main {
   margin-bottom: 1.25rem;
 }
 
-.utterances {
-  max-width: 100% !important;
+#cusdis_thread {
+  max-width: 100%;
 }
 
 /* --- Footer --- */

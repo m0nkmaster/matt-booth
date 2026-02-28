@@ -18,3 +18,7 @@ exclude:
   - README.md
   - AGENTS.md
   - vendor
+
+# Comments (Cusdis) — sign up at https://cusdis.com and add your app ID
+cusdis:
+  app_id: ""

@@ -15,15 +15,21 @@ layout: default
 
   <section class="comments">
     <h2>Comments</h2>
-    <script src="https://utteranc.es/client.js"
-      repo="m0nkmaster/matt-booth"
-      issue-term="pathname"
-      theme="photon-dark"
-      crossorigin="anonymous"
-      async>
-    </script>
+    {% if site.cusdis.app_id and site.cusdis.app_id != "" %}
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="{{ site.cusdis.app_id }}"
+      data-page-id="{{ page.url }}"
+      data-page-url="{{ page.url | absolute_url }}"
+      data-page-title="{{ page.title | xml_escape }}"
+      data-theme="dark">
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    {% else %}
+    <p>Comments are not yet enabled on this site.</p>
+    {% endif %}
     <noscript>
-      <p>Enable JavaScript to view <a href="https://utteranc.es">comments powered by utterances</a>.</p>
+      <p>Enable JavaScript to view comments.</p>
     </noscript>
   </section>
 </article>

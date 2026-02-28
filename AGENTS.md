@@ -6,7 +6,7 @@ This repository is **thephotonbooth.com** — Matt Booth's personal blog about a
 
 - **Jekyll** (static site generator) — GitHub Pages builds it natively
 - **Vanilla CSS** — no preprocessors, just plain CSS in `assets/css/main.css`
-- **utterances** — comment system backed by GitHub Issues (no database)
+- **Cusdis** — lightweight comment system (no sign-in required; optional nickname)
 
 ### Local Development
 
@@ -38,9 +38,9 @@ description: "Short description for the post listing."
 - `assets/css/main.css` — All styles
 - `index.html` — Home page with post listing
 
-### Comments (utterances)
+### Comments (Cusdis)
 
-Comments use [utterances](https://utteranc.es/) which maps each post to a GitHub Issue. The repo owner must install the [utterances GitHub App](https://github.com/apps/utterances) on this repository to enable comments.
+Comments use [Cusdis](https://cusdis.com/) — visitors can comment with just a nickname, no account or sign-in required. To enable: sign up at cusdis.com, create a project, copy your app ID, and add it to `_config.yml` under `cusdis.app_id`.
 
 ### Deployment
 
