@@ -1,66 +1,75 @@
 # Quick post publishing
 
-A simple workflow for adding new posts (with images) to thephotonbooth.com.
+Simple workflow: **drop a folder, run one command.**
 
-## One command to create a post
+## The workflow
 
-```bash
-./scripts/new-post "Your Post Title"
-```
+1. **Create a folder** in `_drafts/` with a short name (e.g. `orion-nebula`)
 
-This will:
-
-1. Create `_posts/YYYY-MM-DD-your-post-title.md` with the correct front matter
-2. Create `assets/images/your-post-title/` for that post's images
-3. Print next steps
-
-## Adding images
-
-1. **Copy your images** into the folder the script created, e.g.:
+2. **Add `content.txt`** — simple format:
    ```
-   assets/images/your-post-title/
+   First line: Post title
+   Second line: Short description (for the listing)
+   Third line: blank
+   Fourth line onwards: Your post body (markdown allowed)
    ```
 
-2. **Reference them in Markdown**:
+3. **Add images** — drop JPG/PNG files in the same folder. Reference them in the body:
    ```markdown
-   ![Orion Nebula final result](/assets/images/your-post-title/orion-final.jpg)
+   ![Orion Nebula](/assets/images/orion-nebula/orion-final.jpg)
+   ```
+   Or just `![](orion-final.jpg)` — the script rewrites paths automatically.
+
+4. **Publish:**
+   ```bash
+   ./scripts/publish-post orion-nebula
    ```
 
-3. Images are automatically styled: responsive, rounded corners, subtle border.
+The script creates the Jekyll post, copies images to `assets/images/`, and deletes the draft.
 
-## Image tips
-
-- **Formats**: JPG or PNG both work; JPG is usually best for astrophotography (smaller files)
-- **Naming**: Use lowercase, hyphens: `orion-final.jpg`, `stacked-120-frames.jpg`
-- **Size**: Consider resizing large images before adding; GitHub Pages has a 1GB repo limit
-
-## Full workflow
+## Publish all drafts at once
 
 ```bash
-# 1. Create post + image folder
-./scripts/new-post "First Light: The Horsehead Nebula"
-
-# 2. Add your images
-cp ~/Pictures/horsehead-final.jpg assets/images/first-light-the-horsehead-nebula/
-
-# 3. Edit the post (add content + image references)
-# Use: ![Horsehead](/assets/images/first-light-the-horsehead-nebula/horsehead-final.jpg)
-
-# 4. Preview locally
-bundle exec jekyll serve --livereload
-
-# 5. Commit and push
-git add _posts/ assets/images/
-git commit -m "Add Horsehead Nebula post"
-git push
+./scripts/publish-post
 ```
 
-## Optional: GitHub web UI
+(No argument = publishes every folder in `_drafts/`)
 
-You can also add posts directly on GitHub:
+## Publish from a single file
 
-1. Create a new file: `_posts/YYYY-MM-DD-slug.md`
-2. Use the **Upload** option to add images to `assets/images/slug/`
-3. Reference images with `/assets/images/slug/filename.jpg`
+If you have a text file (e.g. pasted from Slack/WhatsApp):
 
-The script just makes this faster when working locally.
+```bash
+./scripts/publish-post -f path/to/post.txt
+```
+
+Same format: line 1 = title, line 2 = description, line 4+ = body. Images in the same folder are included.
+
+## Example
+
+```bash
+mkdir -p _drafts/horsehead-nebula
+```
+
+Create `_drafts/horsehead-nebula/content.txt`:
+
+```
+First Light: The Horsehead Nebula
+Dark dust meets emission nebulae in Orion.
+
+Every astrophotographer has a bucket list. The Horsehead was near the top of mine...
+```
+
+Add `horsehead-final.jpg` to the same folder. In the body, add:
+
+```
+![](horsehead-final.jpg)
+```
+
+Then:
+
+```bash
+./scripts/publish-post horsehead-nebula
+```
+
+Done.
