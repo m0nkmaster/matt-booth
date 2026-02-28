@@ -3,6 +3,7 @@ layout: post
 title: "Bananas and the Bradford Beer Festival"
 date: 2026-02-28
 description: "An unlikely pairing — how bananas became the unofficial snack of choice at Bradford's annual beer festival."
+image: /assets/images/banana-beer-placeholder.svg
 ---
 
 If you've ever been to the Bradford Beer Festival, you know it's a proper celebration of cask ale, cider, and community. What you might not expect is that bananas have quietly become one of the festival's most talked-about accompaniments. Here's how that happened.

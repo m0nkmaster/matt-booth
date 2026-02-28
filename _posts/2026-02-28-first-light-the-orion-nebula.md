@@ -3,6 +3,7 @@ layout: post
 title: "First Light: The Orion Nebula"
 date: 2026-02-28
 description: "Getting started with deep-sky imaging by pointing at the brightest nebula in the winter sky."
+image: /assets/images/orion-nebula-placeholder.svg
 ---
 
 Every astrophotographer remembers their first light — that initial image where photons from something impossibly far away land on your sensor and you think, *that actually worked*. Mine was the Orion Nebula, M42, and it looked terrible. But it was real, and I was hooked.

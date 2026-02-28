@@ -2,19 +2,31 @@
 layout: default
 title: null
 ---
-<div class="hero">
-  <h1>thephotonbooth</h1>
-  <p>Amateur astrophotography, deep-sky imaging, and the occasional lesson learned under the stars.</p>
+<div class="hero hero-with-imagery">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="{{ '/assets/images/hero-stars.svg' | relative_url }}" alt="" class="hero-stars">
+  </div>
+  <div class="hero-content">
+    <h1>thephotonbooth</h1>
+    <p>Amateur astrophotography, deep-sky imaging, and the occasional lesson learned under the stars.</p>
+  </div>
 </div>
 
 <ul class="post-list">
   {% for post in site.posts %}
   <li>
-    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-    <a href="{{ post.url | relative_url }}">
-      <h2>{{ post.title }}</h2>
+    {% if post.image %}
+    <a href="{{ post.url | relative_url }}" class="post-list-thumb">
+      <img src="{{ post.image | relative_url }}" alt="" width="120" height="80">
     </a>
-    {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    {% endif %}
+    <div class="post-list-text">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      <a href="{{ post.url | relative_url }}">
+        <h2>{{ post.title }}</h2>
+      </a>
+      {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    </div>
   </li>
   {% endfor %}
 </ul>

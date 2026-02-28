@@ -185,6 +185,31 @@ main {
   border-bottom: 1px solid var(--border);
 }
 
+.hero-with-imagery {
+  position: relative;
+  padding: 2.5rem 0 2.5rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.hero-stars {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
 .hero h1 {
   font-family: var(--font-heading);
   font-size: 2.25rem;
@@ -202,7 +227,50 @@ main {
   line-height: 1.7;
 }
 
+/* --- Post list thumbnails --- */
+
+.post-list li {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.post-list-thumb {
+  flex-shrink: 0;
+  width: 120px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.post-list-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.post-list-text {
+  flex: 1;
+  min-width: 0;
+}
+
 /* --- Article --- */
+
+.post-featured-image {
+  margin: -0.5rem 0 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.post-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 .post-header {
   margin-bottom: 2.75rem;
@@ -384,6 +452,15 @@ main {
   .hero h1 { font-size: 1.75rem; }
   .post-header h1 { font-size: 1.55rem; }
   .post-list h2 { font-size: 1.2rem; }
+
+  .post-list li {
+    flex-direction: column;
+  }
+
+  .post-list-thumb {
+    width: 100%;
+    height: 140px;
+  }
 
   main { padding: 2rem 0 3rem; }
 }

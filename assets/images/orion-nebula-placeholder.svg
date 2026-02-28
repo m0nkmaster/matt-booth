@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" aria-hidden="true">
+  <defs>
+    <radialGradient id="orion-glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#4a6fa5" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#2d3a5c" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#12162a" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#orion-glow)"/>
+  <circle cx="200" cy="125" r="40" fill="#3d5a80" fill-opacity="0.6"/>
+  <circle cx="200" cy="125" r="20" fill="#5a7a9a" fill-opacity="0.5"/>
+  <g fill="#e4e6ef" fill-opacity="0.9">
+    <circle cx="180" cy="110" r="1.5"/>
+    <circle cx="220" cy="115" r="1"/>
+    <circle cx="190" cy="140" r="1"/>
+    <circle cx="210" cy="135" r="1.5"/>
+  </g>
+</svg>
