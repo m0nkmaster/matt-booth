@@ -19,7 +19,9 @@ The site runs at `http://localhost:4000`.
 
 ### Writing Posts
 
-Add Markdown files to `_posts/` with the naming convention `YYYY-MM-DD-slug.md`. Required front matter:
+**Quick workflow:** Run `./scripts/new-post "Your Title"` to create a post and its image folder. See `QUICK_POST.md` for the full workflow.
+
+Manual: Add Markdown files to `_posts/` with the naming convention `YYYY-MM-DD-slug.md`. Required front matter:
 
 ```yaml
 ---
@@ -36,6 +38,8 @@ description: "Short description for the post listing."
 - `_layouts/` — HTML templates (`default.html`, `post.html`)
 - `_posts/` — Blog posts in Markdown
 - `assets/css/main.css` — All styles
+- `assets/images/<post-slug>/` — Images for each post
+- `scripts/new-post` — Quick post creation script
 - `index.html` — Home page with post listing
 
 ### Comments (utterances)
