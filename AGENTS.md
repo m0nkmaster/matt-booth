@@ -19,7 +19,11 @@ The site runs at `http://localhost:4000`.
 
 ### Writing Posts
 
-Add Markdown files to `_posts/` with the naming convention `YYYY-MM-DD-slug.md`. Required front matter:
+**Drop-folder workflow:** Put a folder in `_drafts/` with `content.txt` (title on L1, description on L2, body after) and images. Run `./scripts/publish-post <folder-name>`. See `QUICK_POST.md`. When given content from Matt (e.g. pasted from Slack/WhatsApp), create the draft folder and run `publish-post`.
+
+**Or from a file:** `./scripts/publish-post -f post.txt` — same format, images in same dir.
+
+Manual: Add Markdown files to `_posts/` with the naming convention `YYYY-MM-DD-slug.md`. Required front matter:
 
 ```yaml
 ---
@@ -36,6 +40,9 @@ description: "Short description for the post listing."
 - `_layouts/` — HTML templates (`default.html`, `post.html`)
 - `_posts/` — Blog posts in Markdown
 - `assets/css/main.css` — All styles
+- `assets/images/<post-slug>/` — Images for each post
+- `_drafts/` — Drop folder for posts before publishing
+- `scripts/publish-post` — Publishes drafts (or `scripts/new-post` for empty scaffold)
 - `index.html` — Home page with post listing
 
 ### Comments (utterances)

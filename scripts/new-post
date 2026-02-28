@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Quick post creation for thephotonbooth.com
+# Usage: ./scripts/new-post "Your Post Title"
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: ./scripts/new-post \"Your Post Title\""
+  echo "Example: ./scripts/new-post \"First Light: The Orion Nebula\""
+  exit 1
+fi
+
+TITLE="$1"
+DATE=$(date +%Y-%m-%d)
+
+# Generate slug: lowercase, replace spaces/special chars with hyphens
+SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
+POST_FILE="_posts/${DATE}-${SLUG}.md"
+IMAGES_DIR="assets/images/${SLUG}"
+
+# Create post file
+cat > "$POST_FILE" << EOF
+---
+layout: post
+title: "$TITLE"
+date: $DATE
+description: "Add a short description for the post listing."
+---
+
+Write your post here. Add images with: \`![Alt](/assets/images/${SLUG}/filename.jpg)\`
+EOF
+
+# Create images directory for this post
+mkdir -p "$IMAGES_DIR"
+touch "$IMAGES_DIR/.gitkeep"
+
+echo ""
+echo "✓ Created $POST_FILE"
+echo "✓ Created $IMAGES_DIR/ for images"
+echo ""
+echo "Next steps:"
+echo "  1. Add your images to: $IMAGES_DIR/"
+echo "  2. Edit the post: $POST_FILE"
+echo "  3. Use this markdown for images: ![Alt text](/assets/images/${SLUG}/filename.jpg)"
+echo ""
+echo "Preview locally: bundle exec jekyll serve --livereload"
+echo ""
