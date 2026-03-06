@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+# Publish a draft to the blog.
+# Drop a folder in _drafts/, run this script. Done.
+#
+# Usage:
+#   ./scripts/publish-post <draft-name>     Publish _drafts/<draft-name>/
+#   ./scripts/publish-post                 Publish ALL drafts in _drafts/
+#   ./scripts/publish-post -f file.txt     Publish from a file (title on L1, desc on L2, body after)
+#
+# Draft folder format:
+#   _drafts/<slug>/
+#     content.txt    <- Line 1: title. Line 2: description. Line 3: blank. Line 4+: body.
+#     image1.jpg     <- Any images; reference in body as ![](image1.jpg)
+#     image2.png
+#
+# The body can use ![](filename.jpg) — paths are rewritten automatically.
+
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+DRAFTS_DIR="_drafts"
+POSTS_DIR="_posts"
+IMAGES_BASE="assets/images"
+
+publish_draft() {
+  local draft_path="$1"
+  local slug="$2"
+
+  # Find content file (content.txt, post.txt, post.md, or first .txt/.md)
+  local content_file=""
+  for f in "content.txt" "post.txt" "post.md"; do
+    if [ -f "$draft_path/$f" ]; then
+      content_file="$draft_path/$f"
+      break
+    fi
+  done
+  if [ -z "$content_file" ]; then
+    content_file=$(find "$draft_path" -maxdepth 1 -type f \( -name "*.txt" -o -name "*.md" \) | head -1)
+  fi
+
+  if [ -z "$content_file" ] || [ ! -f "$content_file" ]; then
+    echo "  ✗ No content file found in $draft_path"
+    return 1
+  fi
+
+  # Parse: L1=title, L2=description, L4+=body
+  local title description
+  title=$(head -1 "$content_file")
+  description=$(sed -n '2p' "$content_file")
+  tail -n +4 "$content_file" > "$draft_path/.body.tmp"
+
+  if [ -z "$title" ]; then
+    echo "  ✗ No title on first line"
+    rm -f "$draft_path/.body.tmp"
+    return 1
+  fi
+
+  local date
+  date=$(date +%Y-%m-%d)
+  local post_file="$POSTS_DIR/${date}-${slug}.md"
+  local images_dir="$IMAGES_BASE/${slug}"
+  mkdir -p "$images_dir"
+
+  # Copy images and rewrite paths in body
+  for img in "$draft_path"/*.jpg "$draft_path"/*.jpeg "$draft_path"/*.png "$draft_path"/*.webp "$draft_path"/*.gif; do
+    [ -f "$img" ] || continue
+    local basename
+    basename=$(basename "$img")
+    cp "$img" "$images_dir/$basename"
+    local body_tmp="$draft_path/.body.tmp"
+    sed "s|]( *${basename})|](/assets/images/${slug}/${basename})|g" "$body_tmp" > "$body_tmp.new"
+    sed "s|](${basename})|](/assets/images/${slug}/${basename})|g" "$body_tmp.new" > "$body_tmp"
+    rm -f "$body_tmp.new"
+  done
+
+  # Escape double quotes in description for YAML
+  description="${description//\"/\\\"}"
+
+  # Write post
+  {
+    echo "---"
+    echo "layout: post"
+    echo "title: \"$title\""
+    echo "date: $date"
+    echo "description: \"$description\""
+    echo "---"
+    echo ""
+    cat "$draft_path/.body.tmp"
+  } > "$post_file"
+  rm -f "$draft_path/.body.tmp"
+
+  # Remove draft
+  rm -rf "$draft_path"
+
+  echo "  ✓ Published: $post_file"
+}
+
+publish_from_file() {
+  local file="$1"
+  local slug="$2"
+
+  if [ -z "$slug" ]; then
+    slug=$(head -1 "$file" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
+  fi
+
+  local draft_tmp="$DRAFTS_DIR/.tmp-$$"
+  mkdir -p "$draft_tmp"
+  cp "$file" "$draft_tmp/content.txt"
+
+  # Check for images in same directory
+  local img_dir
+  img_dir=$(dirname "$file")
+  for img in "$img_dir"/*.jpg "$img_dir"/*.jpeg "$img_dir"/*.png "$img_dir"/*.webp "$img_dir"/*.gif; do
+    [ -f "$img" ] && cp "$img" "$draft_tmp/"
+  done
+
+  publish_draft "$draft_tmp" "$slug"
+}
+
+# --- Main ---
+
+mkdir -p "$DRAFTS_DIR"
+
+if [ "$1" = "-f" ] || [ "$1" = "--file" ]; then
+  if [ -z "$2" ]; then
+    echo "Usage: ./scripts/publish-post -f <file>"
+    exit 1
+  fi
+  publish_from_file "$(cd "$(dirname "$2")" && pwd)/$(basename "$2")" "$3"
+  exit 0
+fi
+
+if [ -z "$1" ]; then
+  # Publish all drafts
+  count=0
+  for dir in "$DRAFTS_DIR"/*/; do
+    [ -d "$dir" ] || continue
+    [[ "$dir" == *".tmp-"* ]] && continue
+    slug=$(basename "$dir")
+    echo "Publishing: $slug"
+    publish_draft "$dir" "$slug" && count=$((count + 1))
+  done
+  if [ $count -eq 0 ]; then
+    echo "No drafts found. Create a folder in $DRAFTS_DIR/ with content.txt and images."
+  else
+    echo ""
+    echo "Published $count post(s)."
+  fi
+else
+  # Publish single draft
+  slug="$1"
+  draft_path="$DRAFTS_DIR/$slug"
+  if [ ! -d "$draft_path" ]; then
+    echo "Draft not found: $draft_path"
+    echo ""
+    echo "Create it with:"
+    echo "  mkdir -p $draft_path"
+    echo "  # Add content.txt (title, description, body) and images"
+    exit 1
+  fi
+  publish_draft "$draft_path" "$slug"
+  echo ""
+  echo "Done. Preview: bundle exec jekyll serve --livereload"
+fi
