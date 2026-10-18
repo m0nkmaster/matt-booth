@@ -2,112 +2,31 @@
 layout: default
 title: null
 ---
-{%- assign latest = site.posts.first -%}
-<section class="hero container">
-  <div class="hero-copy">
-    <p class="eyebrow mono"><span class="live-dot" aria-hidden="true"></span>Now developing &middot; {{ site.posts.size }} exposure{% if site.posts.size != 1 %}s{% endif %} and counting</p>
-    <h1>Step inside.<br><span class="text-grad">Hold very still.</span><br>For about six hours.</h1>
-    <p class="lede">
-      Welcome to <strong>the Photon Booth</strong>, where {{ site.author }} points cameras at things
-      impossibly far away and waits for their light to turn up. Amateur astrophotography, gear,
-      processing, and honest failures from under famously cloudy British skies.
-    </p>
-    <div class="hero-actions">
-      {%- if latest %}
-      <a class="btn btn-primary" href="{{ latest.url | relative_url }}">See the latest exposure <span aria-hidden="true">&rarr;</span></a>
-      {%- endif %}
-      <a class="btn btn-ghost" href="{{ '/about/' | relative_url }}">Who&rsquo;s in the booth?</a>
-    </div>
-    <dl class="hero-stats">
-      <div><dt>Exposures</dt><dd>{{ site.posts.size }}</dd></div>
-      <div><dt>Clear nights</dt><dd>Rare</dd></div>
-      <div><dt>Patience</dt><dd>&infin;</dd></div>
-    </dl>
+<div class="hero hero-with-imagery">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="{{ '/assets/images/hero-stars.svg' | relative_url }}" alt="" class="hero-stars">
   </div>
-
-  <div class="booth-stage">
-    <div class="booth" data-booth>
-      <div class="booth-sign" aria-hidden="true"><span>Photon</span><span>Booth</span></div>
-      <div class="booth-cabinet">
-        <div class="booth-window">
-          <div class="booth-sky"></div>
-          <div class="booth-countdown mono" aria-live="polite"></div>
-          <div class="booth-curtain"></div>
-        </div>
-        <div class="booth-panel">
-          <p class="booth-label mono">4 poses &middot; 1 universe</p>
-          <button class="booth-button" type="button" data-booth-trigger>Press for photons</button>
-          <p class="booth-coin mono"><span class="coin-slot" aria-hidden="true"></span>50p &middot; no refunds for clouds</p>
-        </div>
-        <div class="booth-slot" aria-hidden="true"></div>
-      </div>
-      <div class="booth-feet" aria-hidden="true"></div>
-
-      {%- if latest %}
-      <div class="strip-chute">
-        <a class="photo-strip" href="{{ latest.url | relative_url }}" aria-label="Latest exposure: {{ latest.title | escape }}">
-          {%- for i in (1..4) %}
-          <span class="strip-frame strip-frame--{{ i }}">
-            {%- if latest.image %}<img src="{{ latest.image | relative_url }}" alt="" loading="lazy">{% endif -%}
-          </span>
-          {%- endfor %}
-          <span class="strip-caption mono">#{% include frame-number.html url=latest.url %} &middot; {{ latest.date | date: "%d.%m.%y" }}</span>
-        </a>
-      </div>
-      {%- endif %}
-    </div>
+  <div class="hero-content">
+    <h1>thephotonbooth</h1>
+    <p>Amateur astrophotography, deep-sky imaging, and the occasional lesson learned under the stars.</p>
   </div>
-</section>
+</div>
 
-<section class="container section" id="archive">
-  {%- if latest %}
-  <header class="section-head">
-    <h2>Latest exposure</h2>
-    <span class="mono section-note">Fresh out of the developer</span>
-  </header>
-
-  <article class="feature-card">
-    <a class="feature-media{% unless latest.image %} media-empty{% endunless %}" href="{{ latest.url | relative_url }}" tabindex="-1" aria-hidden="true">
-      {%- if latest.image %}<img src="{{ latest.image | relative_url }}" alt="">{% else %}<span class="mono">No image. Probably cloudy.</span>{% endif -%}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    {% if post.image %}
+    <a href="{{ post.url | relative_url }}" class="post-list-thumb">
+      <img src="{{ post.image | relative_url }}" alt="" width="120" height="80">
     </a>
-    <div class="feature-body">
-      <p class="meta mono">
-        <span class="meta-frame">Frame {% include frame-number.html url=latest.url %}</span>
-        <time datetime="{{ latest.date | date_to_xmlschema }}">{{ latest.date | date: "%-d %b %Y" }}</time>
-        <span>{% include read-time.html content=latest.content %} exposure</span>
-      </p>
-      <h3><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h3>
-      {%- if latest.description %}<p class="feature-desc">{{ latest.description }}</p>{% endif %}
-      <a class="text-link" href="{{ latest.url | relative_url }}">Develop this one <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </article>
-  {%- else %}
-  <p class="empty-state">The booth is empty. Matt is presumably outside, waiting for the clouds to move.</p>
-  {%- endif %}
-
-  {%- if site.posts.size > 1 %}
-  <header class="section-head">
-    <h2>The archive</h2>
-    <span class="mono section-note">Older light, still travelling</span>
-  </header>
-
-  <div class="card-grid">
-    {%- for post in site.posts offset: 1 %}
-    <article class="card">
-      <a class="card-media{% unless post.image %} media-empty{% endunless %}" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true">
-        {%- if post.image %}<img src="{{ post.image | relative_url }}" alt="" loading="lazy">{% else %}<span class="mono">No image. Probably cloudy.</span>{% endif -%}
+    {% endif %}
+    <div class="post-list-text">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      <a href="{{ post.url | relative_url }}">
+        <h2>{{ post.title }}</h2>
       </a>
-      <div class="card-body">
-        <p class="meta mono">
-          <span class="meta-frame">#{% include frame-number.html url=post.url %}</span>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</time>
-          <span>{% include read-time.html content=post.content %}</span>
-        </p>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        {%- if post.description %}<p>{{ post.description }}</p>{% endif %}
-      </div>
-    </article>
-    {%- endfor %}
-  </div>
-  {%- endif %}
-</section>
+      {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>

@@ -1,5 +1,5 @@
 title: thephotonbooth.com
-description: "A photo booth, but for photons. Amateur astrophotography by Matt Booth."
+description: Amateur astrophotography by Matt Booth
 author: Matt Booth
 url: "https://thephotonbooth.com"
 baseurl: ""
@@ -17,8 +17,6 @@ exclude:
   - Gemfile.lock
   - README.md
   - AGENTS.md
-  - QUICK_POST.md
-  - scripts
   - vendor
 
 # Comments (Cusdis) — sign up at https://cusdis.com and add your app ID
