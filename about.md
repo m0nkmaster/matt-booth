@@ -7,11 +7,13 @@ permalink: /about/
 
 # About
 
-I'm Matt Booth — a software developer by day, amateur astrophotographer by night (literally).
+I’m Matt Booth. A water leakage tech by night and an amateur astrophotographer by, er, night.
 
-This site is where I share what I'm learning about deep-sky imaging: the gear, the processing, the mistakes, and the occasional frame worth keeping. I'm based in the UK, which means I spend a lot of time waiting for clear skies and not nearly enough time actually imaging.
+This site is where I attempt to dispel the myth that astrophotography is a hobby where the galaxies stay in the sky an the blackhole comes to your wallet.
 
-If you have questions or want to chat about anything here, leave a comment on any post — no account required.
+All the photos you see were taken with eminently affordable gear. Sometimes there's a clever little hack, a neat little workaround, or (if I get my backside into gear) a new innovation or two that isn't currently available. We shall see...
+
+Hopefully I can put together a comments section on here, but please be patient. I'm much better at finding water leaks than I am at web developing!
 
 Clear skies.
 
