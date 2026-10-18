@@ -17,6 +17,20 @@ bundle exec jekyll serve --livereload
 
 The site runs at `http://localhost:4000`.
 
+On macOS the system Ruby (2.6) is too old for Jekyll 4 — use Homebrew Ruby: `export PATH=/opt/homebrew/opt/ruby/bin:$PATH`, then `bundle config set --local path vendor/bundle` before `bundle install`. Pretty permalinks are on, so `foo.html` is served at `/foo/`.
+
+Note: GitHub Pages builds with Jekyll 3.10 (via `actions/jekyll-build-pages`), so stick to Liquid/Jekyll features that work there and don't add unsupported plugins.
+
+### Design ("the Photon Booth")
+
+The concept is a photo booth, but for photons. Palette is from narrowband filters: `--ha` (Hα red), `--oiii` (teal), `--sii` (amber). Fonts: Space Grotesk (UI/headings), Newsreader (body text), JetBrains Mono (metadata). Behaviour lives in `assets/js/main.js`: starfield canvas, booth countdown/flash + ejecting photo strip (once per session), the red-light "Night vision" toggle, the reading-progress bar, and the rotating footer quips (set in `_layouts/default.html`). All animation respects `prefers-reduced-motion`.
+
+- `_includes/frame-number.html`: zero-padded post number ("Frame 003"). `_includes/read-time.html`: minutes to read.
+- `_layouts/page.html`: generic page layout (supports `heading` and `eyebrow` front matter).
+- `feed.xml` (Atom), `404.html`, `assets/images/favicon.svg`.
+
+Optional post front matter: `image` (cover, used on cards, the photo strip and OG tags; `publish-post` sets it to the first image), `image_alt`, `target` (shown as OBJECT, e.g. "M42"), `kit` (shown as INSTRUME).
+
 ### Writing Posts
 
 **Drop-folder workflow:** Put a folder in `_drafts/` with `content.txt` (title on L1, description on L2, body after) and images. Run `./scripts/publish-post <folder-name>`. See `QUICK_POST.md`. When given content from Matt (e.g. pasted from Slack/WhatsApp), create the draft folder and run `publish-post`.

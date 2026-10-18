@@ -1,26 +1,56 @@
 ---
 layout: default
 ---
+<div class="read-progress" aria-hidden="true"><span></span></div>
+
 <article class="post">
-  {% if page.image %}
-  <figure class="post-featured-image">
-    <img src="{{ page.image | relative_url }}" alt="">
-  </figure>
-  {% endif %}
-  <header class="post-header">
-    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+  <header class="post-header container container--narrow">
+    <a class="back-link mono" href="{{ '/' | relative_url }}#archive"><span aria-hidden="true">&larr;</span> All exposures</a>
+    <p class="eyebrow mono">Frame {% include frame-number.html url=page.url %}</p>
     <h1>{{ page.title }}</h1>
+    {%- if page.description %}<p class="post-dek">{{ page.description }}</p>{% endif %}
+
+    <dl class="fits-header mono" aria-label="Post details">
+      <div><dt>DATE-OBS</dt><dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time></dd></div>
+      <div><dt>EXPTIME</dt><dd>{% include read-time.html content=content %} read</dd></div>
+      <div><dt>OBSERVER</dt><dd>{{ page.author | default: site.author }}</dd></div>
+      {%- if page.target %}<div><dt>OBJECT</dt><dd>{{ page.target }}</dd></div>{% endif %}
+      {%- if page.kit %}<div><dt>INSTRUME</dt><dd>{{ page.kit }}</dd></div>{% endif %}
+    </dl>
   </header>
 
-  <div class="post-content">
+  {%- if page.image %}
+  <figure class="post-hero container">
+    <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
+  </figure>
+  {%- endif %}
+
+  <div class="post-content container container--narrow">
     {{ content }}
+    <p class="sign-off mono" aria-hidden="true">&#9733; End of exposure &#9733;</p>
   </div>
 
-  <hr class="divider">
+  {%- if page.previous or page.next %}
+  <nav class="frame-nav container container--narrow" aria-label="More posts">
+    {%- if page.previous %}
+    <a class="frame-nav-link prev" href="{{ page.previous.url | relative_url }}">
+      <span class="mono">&larr; Previous frame</span>
+      <strong>{{ page.previous.title }}</strong>
+    </a>
+    {%- else %}<span></span>{% endif %}
+    {%- if page.next %}
+    <a class="frame-nav-link next" href="{{ page.next.url | relative_url }}">
+      <span class="mono">Next frame &rarr;</span>
+      <strong>{{ page.next.title }}</strong>
+    </a>
+    {%- endif %}
+  </nav>
+  {%- endif %}
 
-  {% if site.cusdis.app_id and site.cusdis.app_id != "" %}
-  <section class="comments">
-    <h2>Comments</h2>
+  {%- if site.cusdis.app_id and site.cusdis.app_id != "" %}
+  <section class="comments container container--narrow">
+    <h2>Shout into the void</h2>
+    <p class="comments-note">Leave a comment &mdash; just a nickname, no sign-up, no tracking.</p>
     <div id="cusdis_thread"
       data-host="https://cusdis.com"
       data-app-id="{{ site.cusdis.app_id }}"
@@ -34,5 +64,5 @@ layout: default
       <p>Enable JavaScript to view comments.</p>
     </noscript>
   </section>
-  {% endif %}
+  {%- endif %}
 </article>

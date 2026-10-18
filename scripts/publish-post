@@ -64,11 +64,13 @@ publish_draft() {
   mkdir -p "$images_dir"
 
   # Copy images and rewrite paths in body
+  local cover=""
   for img in "$draft_path"/*.jpg "$draft_path"/*.jpeg "$draft_path"/*.png "$draft_path"/*.webp "$draft_path"/*.gif; do
     [ -f "$img" ] || continue
     local basename
     basename=$(basename "$img")
     cp "$img" "$images_dir/$basename"
+    [ -z "$cover" ] && cover="/assets/images/${slug}/${basename}"
     local body_tmp="$draft_path/.body.tmp"
     sed "s|]( *${basename})|](/assets/images/${slug}/${basename})|g" "$body_tmp" > "$body_tmp.new"
     sed "s|](${basename})|](/assets/images/${slug}/${basename})|g" "$body_tmp.new" > "$body_tmp"
@@ -85,6 +87,7 @@ publish_draft() {
     echo "title: \"$title\""
     echo "date: $date"
     echo "description: \"$description\""
+    [ -n "$cover" ] && echo "image: $cover"
     echo "---"
     echo ""
     cat "$draft_path/.body.tmp"
