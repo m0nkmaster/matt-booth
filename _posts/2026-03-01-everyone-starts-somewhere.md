@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Everyone Starts Somewhere"
-date: 2026-10-18
+date: 2026-03-01
 description: "My curiosity popped up to say hello, then went to sleep for another 20 years..."
 image: /assets/images/everyone-starts-somewhere/everyone-starts-somewhere.webp
 ---
