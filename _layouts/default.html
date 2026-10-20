@@ -15,11 +15,11 @@
   <header class="site-header">
     <div class="container">
       <a href="{{ '/' | relative_url }}" class="site-title">thephotonbooth<span class="dot">.com</span></a>
-      <nav>
-        <a href="{{ '/' | relative_url }}">Astro</a>
+      <nav aria-label="Main">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.layout == 'post' %} aria-current="page"{% endif %}>Astro</a>
         <span class="nav-label">Music</span>
         <span class="nav-label">Landscapes</span>
-        <a href="{{ '/about' | relative_url }}">About</a>
+        <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
         <button type="button" class="night-toggle" aria-pressed="false" title="Red-light mode">Night mode</button>
       </nav>
     </div>

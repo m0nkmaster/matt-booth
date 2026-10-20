@@ -16,7 +16,7 @@ title: null
 
 <ul class="post-list">
   {% for post in site.posts %}
-  <li>
+  <li{% if forloop.first %} class="post-list-featured"{% endif %}>
     {% if post.image %}
     <a href="{{ post.url | relative_url }}" class="post-list-thumb">
       <img src="{{ post.image | relative_url }}" alt="" width="120" height="80">

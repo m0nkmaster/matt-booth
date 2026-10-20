@@ -75,9 +75,10 @@ body::before {
 }
 
 .site-header .container {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
 }
 
 .site-title {
@@ -101,7 +102,8 @@ body::before {
 
 .site-header nav {
   display: flex;
-  justify-self: end;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 1.25rem;
 }
@@ -119,6 +121,16 @@ body::before {
 .site-header nav a:hover {
   color: var(--accent);
 }
+
+.site-header nav a[aria-current="page"] {
+  color: var(--text-bright);
+}
+
+.site-header nav .nav-label {
+  color: var(--text-muted);
+  cursor: default;
+}
+
 
 /* Red-light mode: for keeping dark-adapted eyes happy beside the telescope. */
 .night-toggle {
@@ -540,14 +552,13 @@ main {
   html { font-size: 16px; }
 
   .site-header .container {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    flex-direction: column;
     gap: 0.85rem;
   }
 
   .site-title { font-size: 1.2rem; }
 
-  .site-header nav { justify-self: center; }
+  .site-header nav { gap: 0.6rem 1rem; }
 
   .hero-with-imagery {
     padding: 2.5rem 1.5rem;
@@ -568,4 +579,195 @@ main {
   }
 
   main { padding: 2rem 0 3rem; }
+}
+
+/* --- Desktop gallery treatment ---
+   Mobile keeps the simple, single-column reading-first layout above. */
+
+@media (min-width: 801px) {
+  :root { --max-width: 1180px; }
+
+  /* Desktop gets one continuous page canvas: the masthead is not a second dark slab. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(8, 10, 18, 0.72);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .site-title { font-size: 1.7rem; }
+
+  .site-header nav {
+    gap: 0.25rem;
+    padding: 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(18, 22, 42, 0.6);
+  }
+
+  .site-header nav a,
+  .site-header nav .nav-label {
+    position: relative;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .site-header nav a:hover { background: var(--accent-soft); }
+
+  .site-header nav a[aria-current="page"] { background: rgba(255, 255, 255, 0.06); }
+
+  .site-header nav a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.2rem;
+    width: 1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: translateX(-50%);
+  }
+
+  .night-toggle { margin-left: 0.4rem; }
+
+  main { padding: 2rem 0 5.5rem; }
+
+  /* 100vw hero would otherwise add a sideways scroll where scrollbars take up space. */
+  body { overflow-x: clip; }
+
+  .hero { margin-bottom: 3rem; }
+
+  /* Full-bleed and borderless so the sky reads as the page backdrop, not a pasted photo. */
+  .hero-with-imagery {
+    width: 100vw;
+    min-height: 0;
+    margin: -2rem 0 0 50%;
+    padding: 4rem max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem)) 2rem;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: none;
+  }
+
+  .hero-bg {
+    opacity: 0.7;
+    -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  }
+
+  .hero-with-imagery::after {
+    background: linear-gradient(90deg, rgba(8, 10, 18, 0.93) 0%, rgba(8, 10, 18, 0.59) 48%, rgba(8, 10, 18, 0.06) 100%), linear-gradient(0deg, rgba(8, 10, 18, 0.68) 0%, transparent 48%);
+  }
+
+  .hero-content { max-width: 820px; padding-bottom: 0.25rem; }
+  .hero h1 {
+    font-size: 2.3rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.6rem;
+  }
+  .hero p { font-size: 0.95rem; line-height: 1.5; }
+
+  .post-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .post-list li,
+  .post-list li:first-child,
+  .post-list li:last-child {
+    position: relative;
+    min-height: 360px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    display: block;
+    isolation: isolate;
+  }
+
+  .post-list li::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(8, 10, 18, 0.04) 15%, rgba(8, 10, 18, 0.94) 100%);
+  }
+
+  .post-list-featured {
+    grid-column: span 2;
+    min-height: 540px !important;
+  }
+
+  .post-list-thumb {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .post-list-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease, opacity 0.35s ease;
+  }
+
+  .post-list li:hover .post-list-thumb img {
+    transform: scale(1.035);
+    opacity: 0.86;
+  }
+
+  .post-list-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem 2.25rem;
+    max-width: 760px;
+  }
+
+  .post-list-featured .post-list-text { padding: 3.25rem 3.5rem; }
+
+  .post-list h2 {
+    font-size: 2rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .post-list-featured h2 { font-size: clamp(2.7rem, 4.5vw, 4rem); }
+  .post-list p { color: var(--text-bright); max-width: 52ch; }
+
+  /* A roomy canvas should not turn a personal essay into a tennis match. */
+  .post,
+  .page-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .page-content { padding-top: 2rem; }
+  .page-content h1 { font-size: 3rem; }
+
+  .post-featured-image {
+    width: min(1100px, calc(100vw - 6rem));
+    margin: -1rem 50% 3.5rem;
+    transform: translateX(-50%);
+    border-radius: 14px;
+  }
+
+  .post-header h1 { font-size: 3rem; }
 }
